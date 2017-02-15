@@ -1,7 +1,9 @@
 #include <jni.h>
 #include <string.h>
+#include <stdlib.h>
+#include <time.h>
 
-extern "C"{
+extern "C" {
 JNIEXPORT jstring JNICALL
 Java_com_loften_ndksample_JniTest_combine(JNIEnv *env, jclass type, jstring a_, jstring b_) {
     const char *a = env->GetStringUTFChars(a_, 0);
@@ -21,6 +23,20 @@ Java_com_loften_ndksample_JniTest_combine(JNIEnv *env, jclass type, jstring a_, 
     env->ReleaseStringUTFChars(b_, b);
 
     return returnValue;
+}
+
+#define random(x) (rand()%x)
+JNIEXPORT jintArray JNICALL
+Java_com_loften_ndksample_JniTest_getIntArray(JNIEnv *env, jclass type, jint size) {
+
+    srand(time(0));
+    jint * rs = new jint[size];
+    for (int i = 0; i < size; ++i) {
+        rs[i] = random(100);
+    }
+    jintArray array = env->NewIntArray(size);
+    env->SetIntArrayRegion(array,0,size,rs);
+    return array;
 }
 
 }

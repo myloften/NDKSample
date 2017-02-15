@@ -12,7 +12,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         TextView tv = (TextView) findViewById(R.id.tv);
-        tv.setText(JniTest.combine("aaaaaa","bbbbb"));
+        int[] array =  JniTest.getIntArray(10);
+        StringBuilder mValue = new StringBuilder();
+        for (int i : array) {
+            mValue.append(i);
+            mValue.append(",");
+        }
+        mValue.deleteCharAt(mValue.length()-1);
+        tv.setText("["+mValue+"]");
     }
 
 

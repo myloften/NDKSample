@@ -9,5 +9,11 @@ public class JniTest {
         System.loadLibrary("myjni");
     }
 
+    //连接两字符串
     public static native String combine(String a, String b);
+
+    //输入size后返回该大小数组
+    public static native int[] getIntArray(int size);
+
+
 }

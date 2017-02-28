@@ -9,6 +9,9 @@ public class JniTest {
         System.loadLibrary("myjni");
     }
 
+    //HelloWorld
+    public static native String test();
+
     //连接两字符串
     public static native String combine(String a, String b);
 

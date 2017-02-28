@@ -5,8 +5,15 @@
 #include <stdio.h>
 #include "LogUtils.h"
 
-
 extern "C" {
+
+JNIEXPORT jstring JNICALL
+Java_com_loften_ndksample_JniTest_test(JNIEnv *env, jclass type) {
+
+    return env->NewStringUTF("Hello World");
+}
+
+
 JNIEXPORT jstring JNICALL
 Java_com_loften_ndksample_JniTest_combine(JNIEnv *env, jclass type, jstring a_, jstring b_) {
     const char *a = env->GetStringUTFChars(a_, 0);

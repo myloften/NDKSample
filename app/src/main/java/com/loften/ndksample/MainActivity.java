@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTv3;
     private TextView mTv4;
     private TextView mTv5;
+    private TextView mTv6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,22 +25,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initDatas() {
+        mTv1.setText(JniTest.test());
         int[] array =  JniTest.getIntArray(10);
         StringBuilder mValue1 = intArrayToString(array);
-        mTv1.setText("["+mValue1+"]");
+        mTv2.setText("["+mValue1+"]");
         JniTest.sortIntArray(array);
         StringBuilder mValue2 = intArrayToString(array);
-        mTv2.setText("["+mValue2+"]");
+        mTv3.setText("["+mValue2+"]");
         JniTest jniTest = new JniTest();
         Bean bean = jniTest.creatBean("this is a new bean", 1);
-        mTv3.setText(bean.getMsg()+":"+bean.getWhat());
-        mTv4.setText(jniTest.getBeanString(bean));
+        mTv4.setText(bean.getMsg()+":"+bean.getWhat());
+        mTv5.setText(jniTest.getBeanString(bean));
         jniTest.ModifyBean(bean);
-        mTv5.setText(bean.getMsg()+":"+bean.getWhat());
+        mTv6.setText(bean.getMsg()+":"+bean.getWhat());
 
         Test(1000);
     }
 
+    /**
+     * 测试Java中创建对象的速度和C++创建对象的速度对比
+     */
     private void Test(int i) {
         long startTime = System.currentTimeMillis();
         for (int i1 = 0; i1 < i; i1++) {
@@ -76,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         mTv3 = (TextView) findViewById(R.id.tv3);
         mTv4 = (TextView) findViewById(R.id.tv4);
         mTv5 = (TextView) findViewById(R.id.tv5);
+        mTv6 = (TextView) findViewById(R.id.tv6);
     }
 
 

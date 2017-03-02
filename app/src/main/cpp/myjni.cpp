@@ -9,6 +9,35 @@ extern "C" {
 
 JNIEXPORT jstring JNICALL
 Java_com_loften_ndksample_JniTest_test(JNIEnv *env, jclass type) {
+    //Java字符串转换为C字符串
+    jstring value = env->NewStringUTF("Hello World");
+    const jchar *str;
+    jboolean isCopy;
+    str = (const jchar *) env->GetStringUTFChars(value, &isCopy);
+    if(0 != str){
+        printf("Java string: %s", str);
+
+        if(JNI_TRUE == isCopy){
+            printf("C string is a copy of the Java string.");
+        }else{
+            printf("C string points to actual string.");
+        }
+    }
+
+    //数组操作
+    jintArray javaArray = env->NewIntArray(10);
+    jint nativeArray[10];
+    env->GetIntArrayRegion(javaArray, 0, 10, nativeArray);
+    jint *nativeDirectArray;
+    nativeDirectArray = env->GetIntArrayElements(javaArray, &isCopy);
+    env->ReleaseIntArrayElements(javaArray, nativeDirectArray, 0);
+
+    //NIO操作
+    unsigned char* buffer = (unsigned char*)malloc(1024);
+    jobject directBuffer = env->NewDirectByteBuffer(buffer, 1024);
+    unsigned char* buffer1 = (unsigned char *) env->GetDirectBufferAddress(directBuffer);
+
+
 
     return env->NewStringUTF("Hello World");
 }
